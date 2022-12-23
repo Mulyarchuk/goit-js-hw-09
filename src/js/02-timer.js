@@ -19,7 +19,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     let currentTime = Date.now();
-    if (selectedDates[0]<= currentTime){
+    if (currentTime >= selectedDates[0]){
       Notiflix.Notify.failure('`Please choose a date in the future`');
       buttonStart.disabled = true;
     }
@@ -28,19 +28,24 @@ const options = {
   }
   },
 };
+
 function startTimer(){
   buttonStart.disabled = true
-  // input.disabled = true
-  timeLive();
-}
+  
+  liveTimer();
+
+
 const timerId = setInterval(() => {
-  timeLive(timerId);
-  }, 1000);
+  liveTimer(timerId);
+  
+}, 1000);
+
+}
 
 buttonStart.addEventListener(`click`,startTimer);
 
 
-function timeLive (timerID){
+function liveTimer (timerID){
   const currentTime = Date.now();
   let deltaTime = selectedData - currentTime;
   if (deltaTime <= 0){
